@@ -5,7 +5,6 @@ async function UploadFileToFTP(
   host: string,
   user: string,
   password: string,
-  port: number,
   localFilePath: string,
   remoteFileName: string
 ) {
@@ -16,7 +15,6 @@ async function UploadFileToFTP(
       host,
       user,
       password,
-      port,
       secure: false, // Passer à `true` si vous utilisez FTPS
     });
 

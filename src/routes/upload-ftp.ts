@@ -21,7 +21,7 @@ router.post(
   "/upload-ftp",
   upload.single("file"),
   async (req: Request, res: Response) => {
-    const { host, user, password, port, remoteFileName } = req.body;
+    const { host, user, password, remoteFileName } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded!" });
@@ -34,7 +34,6 @@ router.post(
         host,
         user,
         password,
-        port,
         localFilePath,
         remoteFileName
       );
