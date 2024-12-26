@@ -21,13 +21,21 @@ router.post(
   "/upload-ftp",
   upload.single("file"),
   async (req: Request, res: Response) => {
-    const { host, user, password, remoteFileName } = req.body;
+    const { host, user, password, remoteFileName, port, isSecure } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded!" });
     }
     const localFilePath = path.resolve(req.file.path);
-    console.log({ host, user, password, localFilePath, remoteFileName });
+    console.log({
+      host,
+      user,
+      password,
+      localFilePath,
+      remoteFileName,
+      port,
+      isSecure,
+    });
 
     try {
       await UploadFileToFTP(
@@ -35,7 +43,9 @@ router.post(
         user,
         password,
         localFilePath,
-        remoteFileName
+        remoteFileName,
+        isSecure,
+        port
       );
       res.json({ message: "Here is the upload route !" });
     } catch (err) {

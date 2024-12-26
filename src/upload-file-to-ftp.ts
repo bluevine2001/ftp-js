@@ -6,7 +6,9 @@ async function UploadFileToFTP(
   user: string,
   password: string,
   localFilePath: string,
-  remoteFileName: string
+  remoteFileName: string,
+  isSecure: boolean,
+  port: number
 ) {
   const client = new Client();
   client.ftp.verbose = true; // Pour voir les logs dans la console
@@ -15,7 +17,11 @@ async function UploadFileToFTP(
       host,
       user,
       password,
-      secure: false, // Passer à `true` si vous utilisez FTPS
+      port: port, // Port FTP
+      secure: isSecure, // Passer à `true` si vous utilisez FTPS
+      /* secureOptions: {
+        rejectUnauthorized: false, // Désactiver la validation du certificat pour tester (pas en production !)
+      }, */
     });
 
     // Téléchargement du fichier local vers le serveur FTP
